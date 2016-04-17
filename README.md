@@ -6,11 +6,6 @@ One major pain point of using Lambda and API Gateway is the difficulty of settin
 
 You need to have [Terraform](https://www.terraform.io/) installed and a functioning [AWS](https://aws.amazon.com/) account to deploy this project.
 
-You can generate a config locally using [Lambda-local](https://github.com/ashiina/lambda-local) with a command like:
-```bash
-lambda-local -l index.js -h handler -e sample-data/data.js
-```
-
 ## Usage
 
 Follow these steps to deploy:
@@ -35,6 +30,13 @@ You can generate the config file by running these commands:
 $ curl -o /tmp/haproxycfg -H "Content-Type: application/json" --data @sample-data/data.json <invoke_url>/generate
 $ echo "$(</tmp/haproxycfg)" > haproxy.cfg
 $ rm /tmp/haproxycfg
+```
+
+### Running Locally
+
+You can run Lambda functions locally using [Lambda-local](https://github.com/ashiina/lambda-local) with a command like:
+```bash
+lambda-local -l index.js -h handler -e sample-data/data.js
 ```
 
 ### Customizing the Project

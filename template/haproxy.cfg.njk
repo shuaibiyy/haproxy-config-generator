@@ -13,14 +13,14 @@ defaults
     option dontlognull
     option forwardfor
     option http-server-close
-    contimeout 5000
-    clitimeout 50000
-    srvtimeout 50000
+    timeout connect 5000
+    timeout client 50000
+    timeout server 50000
 
 # Define fontends
 
 frontend http
-    *:80
+    bind :80
     {% for cluster in clusters %}
     {%- if (cluster.mode == "host") %}
     acl {{ cluster.name }} hdr(host) -i {{ cluster.predicate }}
