@@ -1,0 +1,48 @@
+global
+    log 127.0.0.1   local0
+    log 127.0.0.1   local1 notice
+    maxconn 4096
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    option forwardfor
+    option http-server-close
+    contimeout 5000
+    clitimeout 50000
+    srvtimeout 50000
+
+# Define fontends
+
+frontend http
+    *:80
+    {% for cluster in clusters %}
+    {%- if (cluster.mode == "host") %}
+    acl {{ cluster.name }} hdr(host) -i {{ cluster.predicate }}
+    {% endif -%}
+
+    {%- if (cluster.mode == "path") %}
+    acl {{ cluster.name }} url_beg /{{ cluster.predicate }}
+    {% endif -%}
+
+    use_backend {{ cluster.name }} if {{ cluster.name }}
+    {% endfor %}
+
+# Define backends
+{% for cluster in clusters %}
+backend {{ cluster.name }}
+    mode http
+    balance roundrobin
+    option forwardfor
+    {% if cluster.cookie -%}
+    cookie {{ cluster.cookie }} prefix nocache
+    {% endif %}
+    {%- for server in cluster.servers %}
+    server {{ server.name }} {{ server.ip }} check {% if cluster.cookie %}cookie {{ server.name }}{% endif %}
+    {% endfor -%}
+{% endfor -%}
