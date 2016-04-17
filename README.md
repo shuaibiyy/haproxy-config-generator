@@ -25,11 +25,11 @@ To tear down:
 terraform destroy
 ```
 
-You can find the Invoke URL for the API created via the AWS console for API Gateway. The steps look like: `Amazon API Gateway | APIs > haproxy_config_generator > Stages > api`.
+You can find the Invoke URL for the API endpoint created via the AWS console for API Gateway. The steps look like: `Amazon API Gateway | APIs > haproxy_config_generator > Stages > api`.
 
 You can generate the config file by running these commands:
 ```bash
-$ curl -o /tmp/haproxycfg -H "Content-Type: application/json" --data @sample-data/data.json <invoke_url>
+$ curl -o /tmp/haproxycfg -H "Content-Type: application/json" --data @sample-data/data.json <invoke_url>/generate
 $ echo "$(</tmp/haproxycfg)" > haproxy.cfg
 $ rm /tmp/haproxycfg
 ```
