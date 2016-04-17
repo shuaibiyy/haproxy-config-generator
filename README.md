@@ -6,7 +6,10 @@ One major pain point of using Lambda and API Gateway is the difficulty of settin
 
 You need to have [Terraform](https://www.terraform.io/) installed and a functioning [AWS](https://aws.amazon.com/) account to deploy this project.
 
-You can run the project locally using [Lambda-local](https://github.com/ashiina/lambda-local).
+You can generate a config locally using [Lambda-local](https://github.com/ashiina/lambda-local) with a command like:
+```bash
+lambda-local -l index.js -h handler -e sample-data/data.js
+```
 
 ## Usage
 
