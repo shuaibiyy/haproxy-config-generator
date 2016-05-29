@@ -20,7 +20,7 @@ resource "aws_lambda_function" "generator_lambda" {
 
 resource "aws_api_gateway_rest_api" "generator_api" {
   name = "haproxy_config_generator"
-  description = "API for HAProxy Configuraation Generator"
+  description = "API for HAProxy Configuration Generator"
   depends_on = ["aws_lambda_function.generator_lambda"]
 }
 
