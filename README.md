@@ -6,6 +6,8 @@ One major pain point of using Lambda and API Gateway is the difficulty of settin
 
 You need to have [Terraform](https://www.terraform.io/) installed and a functioning [AWS](https://aws.amazon.com/) account to deploy this project.
 
+[Lambda-Registry](https://github.com/shuaibiyy/lambda-registry) is an iteration of this project that adds support for persisting the state of past services. Past services are services for which HAProxy configs have previously been generated. This state is then consolidated into future configs upon request.
+
 ## Usage
 
 Follow these steps to deploy:
